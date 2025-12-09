@@ -32,7 +32,7 @@ html{
 
 header{
     display: flex;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;
@@ -43,7 +43,7 @@ header{
     background-color: rgba(255, 255, 255, 0.121);
     backdrop-filter: blur(5px);
     box-shadow: 0 0 15px #72a1dea2;
-    z-index: 999;
+    z-index: 9999;
 }
 
 .left{

@@ -1,4 +1,26 @@
 // ---------------------------
+// EMAILJS CONTACT FORM INTEGRATION
+// ---------------------------
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init('YOUR_EMAILJS_PUBLIC_KEY'); // Replace with your EmailJS public key
+        var contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                    .then(function() {
+                        alert('Message sent successfully!');
+                        contactForm.reset();
+                    }, function(error) {
+                        alert('Failed to send message. Please try again.');
+                    });
+            });
+        }
+    }
+});
+// ...existing code...
+// ---------------------------
 // SIDEBAR OPEN / CLOSE
 // ---------------------------
 const menuIcon = document.querySelector(".menu-icon");
