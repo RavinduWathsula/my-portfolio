@@ -1243,6 +1243,69 @@ header ul a:hover{
 /*certificates section*/
 
 
+/* Certificates layout: force 2x2 equal-size cards */
+.certificates-section .info-cards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 80%;
+    margin: 20px auto 40px auto;
+}
+.certificates-section .card{
+    height: 340px; /* uniform height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px;
+    box-sizing: border-box;
+    position: relative; /* allow absolute footer button */
+    padding-bottom: 64px; /* room for absolute button */
+}
+.certificates-section .card .cert-image{
+    display: block;
+    margin: 6px auto 8px auto;
+    width: 100%;
+    max-width: 220px; /* smaller, consistent width */
+    height: auto;
+    max-height: 140px; /* limit tall images */
+    object-fit: contain;
+    border-radius: 8px;
+}
+.cert-logo{
+    width: 50px;
+    height: 30px;
+    object-fit:none;
+    margin-bottom: 8px;
+}
+.certificates-section .card a{
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 12px;
+    display: block;
+    z-index: 20;
+}
+.certificates-section .card button{
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 12px;
+}
+.certificates-section .card button{
+    margin-top: 8px;
+}
+
+@media (max-width: 700px){
+    .certificates-section .info-cards{
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+    .certificates-section .card{
+        height: auto;
+    }
+}
+
+
 
 
 @media (max-aspect-ratio: 16/9){
