@@ -18,6 +18,7 @@ html{
     align-items: center;
     gap: 100px;
     background-color: #001f7c38;
+    padding-top: 80px; /* reserve space for fixed header */
 }
 
 
@@ -32,7 +33,7 @@ html{
 
 header{
     display: flex;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;
@@ -44,6 +45,35 @@ header{
     backdrop-filter: blur(5px);
     box-shadow: 0 0 15px #72a1dea2;
     z-index: 999;
+}
+
+/* Bottom center arrow (back to top) */
+.hero-center-arrow{
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    background: rgba(34, 0, 73, 0.85);
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    cursor: pointer;
+    z-index: 1000;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+    opacity: 0; /* JS toggles opacity */
+}
+.hero-center-arrow .arrow{
+    font-size: 22px;
+    line-height: 1;
+}
+.hero-center-arrow:hover{
+    transform: translateX(-50%) translateY(-4px);
+    opacity: 1;
 }
 
 .left{

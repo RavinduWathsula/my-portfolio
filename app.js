@@ -437,10 +437,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* =========================
-     OPTIONAL: Add data-contact attributes to elements you want to prefill:
-     <button data-contact="true" data-name="John Doe" data-email="john@example.com">Contact Me</button>
-     ========================= */
+ 
+
+  
 
   console.log("app.js loaded and initialized.");
   
