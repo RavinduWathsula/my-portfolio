@@ -501,6 +501,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
 
+  // initialize AOS if available
+  try{ if (typeof AOS !== 'undefined' && AOS && typeof AOS.init === 'function') { AOS.init(); } }catch(e){}
   console.log("app.js loaded and initialized.");
   
 
