@@ -1780,3 +1780,315 @@ header ul a:focus{ outline: 2px solid rgba(114,161,222,0.25); }
     opacity: 1 !important;
     transform: translateY(0px) !important;
 }
+/* Mobile polish overrides: hide heavy videos, improve tap targets, full-width buttons */
+@media screen and (max-width: 600px) {
+    /* Hide large background and hero videos to improve performance on mobile */
+    .back-vid,
+    .blackhole-box video,
+    .skills-video,
+    .project-vidbox video {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
+    }
+
+    /* Hero sizing */
+    .hero {
+        height: auto !important;
+        padding: 36px 0;
+    }
+    .hero-info h1 { font-size: 1.8rem !important; line-height: 1.2 !important; }
+    .hero-info p  { font-size: 1rem !important; max-width: 92% !important; margin: 12px auto !important; }
+    .hero-info button { width: 90% !important; display: block !important; margin: 12px auto !important; padding: 14px 18px !important; font-size: 1rem !important; }
+
+    /* Make card/action buttons larger and full width for easy tapping */
+    .card button,
+    .certificates-section .card button,
+    .project-info button,
+    .contact-box button {
+        width: 100% !important;
+        padding: 12px 16px !important;
+        font-size: 1rem !important;
+    }
+
+    /* Increase menu icon size and adjust header spacing */
+    .menu-icon { font-size: 2.4rem !important; padding-right: 8px; }
+    header { height: 56px !important; padding: 0 12px !important; }
+    .left img { width: 34px !important; }
+
+    /* Improve sidebar link sizes */
+    .sidebar ul li a { font-size: 1.7rem !important; padding: 12px 0 !important; }
+
+    /* Ensure container accounts for reduced header height */
+    .container { padding-top: 64px !important; gap: 28px !important; }
+
+    /* Hide center arrow on small devices (redundant with scroll affordances) */
+    .hero-center-arrow { display: none !important; }
+}
+/* =============================================================================
+   My Custom Mobile Responsive Styles
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+  /* --- General --- */
+  body {
+    -webkit-text-size-adjust: 100%; /* Prevent iOS font scaling */
+  }
+
+  h1, h2, h3 {
+    line-height: 1.2;
+  }
+
+  .container {
+    gap: 50px;
+    padding-top: 60px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* --- Header --- */
+  header {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  header ul, header .box-icons {
+    display: none;
+  }
+  
+  .menu-icon {
+    display: block;
+    font-size: 2rem;
+  }
+
+  /* --- Sidebar --- */
+  .sidebar {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    bottom: 0;
+    border-radius: 0;
+    transition: right 0.4s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar.open-sidebar {
+    right: 0;
+    animation: none; /* remove previous animation */
+  }
+
+  .sidebar .close-icon {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 3rem;
+  }
+
+  .sidebar ul {
+    padding: 0;
+    text-align: center;
+  }
+
+  .sidebar ul li {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar ul li a {
+    font-size: 2rem;
+  }
+
+  .social-sidebar {
+    margin-top: 2rem;
+  }
+
+  /* --- Hero Section --- */
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 80vh;
+  }
+
+  .hero-info {
+    position: static;
+    transform: none;
+    padding: 0 15px;
+  }
+
+  .hero-info h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-info p {
+    font-size: 1rem;
+    max-width: 90%;
+    margin: 20px auto;
+  }
+
+  .skills-video-box {
+    display: none;
+  }
+  
+  .scroll-down {
+    display: none;
+  }
+
+  /* --- Info Section --- */
+  .info-section {
+    width: 90%;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card:nth-child(3) {
+    grid-row: auto;
+    height: auto;
+  }
+
+  /* --- Projects Section --- */
+  .my-project {
+    width: 90%;
+  }
+
+  .project-card {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .project-vidbox, .project-info {
+    width: 100%;
+    min-width: unset;
+    text-align: center;
+  }
+
+  .project-info {
+    align-items: center;
+  }
+
+  .project-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .project-info p {
+    max-width: 100%;
+  }
+
+  /* --- Skills Section --- */
+  .skills-box {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .skills-image {
+    display: none;
+  }
+
+  .Designer, .coder {
+    position: static;
+    max-width: 100%;
+    align-items: center;
+  }
+  
+  .Designer h1, .coder h1 {
+    font-size: 2.5rem;
+  }
+
+  .slider {
+    position: static;
+    width: 100%;
+    right: 0;
+  }
+
+  /* --- Contact Section --- */
+  .contact-section {
+    flex-direction: column;
+    height: auto;
+    gap: 50px;
+    width: 90%;
+    padding: 50px 0;
+  }
+
+  .contact-section h1 {
+    position: static;
+  }
+
+  .social-box {
+    text-align: center;
+  }
+
+  .contact-box {
+    width: 100%;
+  }
+
+  .contact-box input {
+    width: 100%;
+  }
+
+  /* --- Certificates Section --- */
+  .certificates-section .info-cards {
+    grid-template-columns: 1fr; /* Stack cards vertically */
+    gap: 20px; /* Adjust gap between stacked cards */
+    width: 90%; /* Use more width on small screens */
+    margin: 20px auto 40px auto;
+  }
+
+  .certificates-section .card {
+    height: auto; /* Allow height to adjust based on content */
+    padding: 15px; /* Adjust padding for smaller screens */
+    padding-bottom: 70px; /* Ensure space for the button */
+  }
+
+  .cert-image-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 10px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.2);
+  }
+
+  .certificates-section .card .cert-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .certificates-section .card h1 {
+    font-size: 1.3rem; /* Adjust title font size */
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  .certificates-section .card p {
+    font-size: 0.9rem; /* Adjust paragraph font size */
+    margin-bottom: 10px;
+  }
+
+  .certificates-section .card a {
+    position: absolute;
+    bottom: 15px; /* Adjust button position */
+    left: 15px;
+    right: 15px;
+  }
+
+  .certificates-section .card button {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
+

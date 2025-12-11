@@ -1,24 +1,4 @@
-// ---------------------------
-// EMAILJS CONTACT FORM INTEGRATION
-// ---------------------------
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof emailjs !== 'undefined') {
-        emailjs.init('YOUR_EMAILJS_PUBLIC_KEY'); // Replace with your EmailJS public key
-        var contactForm = document.getElementById('contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                    .then(function() {
-                        alert('Message sent successfully!');
-                        contactForm.reset();
-                    }, function(error) {
-                        alert('Failed to send message. Please try again.');
-                    });
-            });
-        }
-    }
-});
+
 // ...existing code...
 // ---------------------------
 // SIDEBAR OPEN / CLOSE
@@ -310,73 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* =========================
-     EMAILJS FORM SUBMIT
-     - Your template must expect variables matching the form fields
-       (e.g. user_name, user_email, message) or adapt below
-     ========================= */
-  if (contactForm) {
-    contactForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const submitBtn = contactForm.querySelector("button[type='submit']") || contactForm.querySelector("button");
-      const originalBtnText = submitBtn?.textContent || "Send";
 
-      // Prefer EmailJS when configured; otherwise fall back to mailto link so user can send via their mail client
-      const canUseEmailJS = (typeof emailjs !== "undefined" && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID);
-      if (!canUseEmailJS) {
-        // compose mailto fallback
-        const name = contactNameInput?.value || '';
-        const email = contactEmailInput?.value || '';
-        const message = contactMessage?.value || '';
-        const subject = encodeURIComponent('Portfolio contact from ' + (name || email || 'website'));
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-        const mailto = `mailto:rvwathsula@gmail.com?subject=${subject}&body=${body}`;
-
-        // Ask user to open their email client
-        if (confirm('Email service is not configured on this site. Open your email app to send the message?')) {
-          // open mail client with prefilled content
-          window.location.href = mailto;
-          // give visual feedback
-          if (submitBtn) {
-            submitBtn.textContent = 'Opening mail app...';
-            setTimeout(() => {
-              contactForm.reset();
-              if (submitBtn) submitBtn.textContent = originalBtnText;
-            }, 1200);
-          }
-        }
-        return;
-      }
-
-      // disable while sending
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
-      }
-
-      try {
-        // sendForm works with <form id="contact-form"> and input names
-        const res = await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm);
-        // success
-        // You can replace this with a better UI modal
-        if (submitBtn) submitBtn.textContent = "Sent ✓";
-        setTimeout(() => {
-          contactForm.reset();
-          if (submitBtn) submitBtn.textContent = originalBtnText;
-        }, 1600);
-      } catch (err) {
-        console.error("EmailJS error:", err);
-        alert("Failed to send message. Try again later.");
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
-        }
-      } finally {
-        // re-enable
-        if (submitBtn) submitBtn.disabled = false;
-      }
-    });
-  }
 
   /* =========================
      AUTO BLUR / AUTO DISPLAY ON SCROLL
