@@ -998,6 +998,18 @@ header ul a:focus{ outline: 2px solid rgba(114,161,222,0.25); }
 
 }
 
+/* Performance hints: prefer composited properties and reduce repaints */
+.autoBlur, .autoDisplay, .project-vidbox, .card, .hero-info, .skills-box{
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
+
 @keyframes autoDisplayAnimation{
     from{
         filter: blur(10px);

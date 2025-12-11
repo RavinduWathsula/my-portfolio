@@ -123,7 +123,7 @@ function setActiveNav() {
     });
 }
 
-window.addEventListener("scroll", setActiveNav);
+window.addEventListener("scroll", setActiveNav, {passive: true});
 
 
 // ---------------------------
@@ -190,6 +190,22 @@ document.addEventListener("DOMContentLoaded", () => {
       t = setTimeout(() => fn(...args), wait);
     };
   }
+
+  // Performance: lazy-load images and reduce video preload
+  try{
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(()=>{
+        document.querySelectorAll('img').forEach(img=>{ if(!img.loading) img.loading = 'lazy'; });
+        document.querySelectorAll('video').forEach(v=>{ try{ v.preload = 'metadata'; }catch(e){} });
+      });
+    } else {
+      // fallback
+      setTimeout(()=>{
+        document.querySelectorAll('img').forEach(img=>{ if(!img.loading) img.loading = 'lazy'; });
+        document.querySelectorAll('video').forEach(v=>{ try{ v.preload = 'metadata'; }catch(e){} });
+      }, 1200);
+    }
+  }catch(e){console.warn('lazy init failed', e)}
 
   /* =========================
      MENU / SIDEBAR
@@ -400,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.transition = "0.7s ease";
   });
 
-  window.addEventListener("scroll", debounce(handleScrollReveal, 12));
+  window.addEventListener("scroll", debounce(handleScrollReveal, 12), {passive: true});
   // run once on load
   handleScrollReveal();
 
@@ -421,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  window.addEventListener("scroll", debounce(setActiveNav, 10));
+  window.addEventListener("scroll", debounce(setActiveNav, 10), {passive: true});
   setActiveNav();
 
   /* =========================
