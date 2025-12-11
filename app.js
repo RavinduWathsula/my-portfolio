@@ -227,6 +227,32 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) smoothScrollTo(target, -80); // account for fixed header
+        // set active immediately for feedback
+        navLinks.forEach(l=>l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Also wire sidebar links to set active state (and close sidebar)
+  const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', (e)=>{
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')){
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) smoothScrollTo(target, -80);
+        // sync active state in header and sidebar
+        navLinks.forEach(l=>l.classList.remove('active'));
+        sidebarLinks.forEach(l=>l.classList.remove('active'));
+        // try to find matching header link
+        const headLink = document.querySelector(`header ul li a[href="${href}"]`);
+        if(headLink) headLink.classList.add('active');
+        link.classList.add('active');
+        // close sidebar
+        sidebar.classList.remove('open-sidebar');
+        document.body.classList.remove('no-scroll');
       }
     });
   });
@@ -279,12 +305,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const submitBtn = contactForm.querySelector("button[type='submit']") || contactForm.querySelector("button");
       const originalBtnText = submitBtn?.textContent || "Send";
 
-      if (typeof emailjs === "undefined") {
-        alert("Email service unavailable. Make sure EmailJS script is loaded.");
-        return;
-      }
-      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-        alert("EmailJS service/template not configured. Put SERVICE/ TEMPLATE IDs in app.js.");
+      // Prefer EmailJS when configured; otherwise fall back to mailto link so user can send via their mail client
+      const canUseEmailJS = (typeof emailjs !== "undefined" && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID);
+      if (!canUseEmailJS) {
+        // compose mailto fallback
+        const name = contactNameInput?.value || '';
+        const email = contactEmailInput?.value || '';
+        const message = contactMessage?.value || '';
+        const subject = encodeURIComponent('Portfolio contact from ' + (name || email || 'website'));
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        const mailto = `mailto:rvwathsula@gmail.com?subject=${subject}&body=${body}`;
+
+        // Ask user to open their email client
+        if (confirm('Email service is not configured on this site. Open your email app to send the message?')) {
+          // open mail client with prefilled content
+          window.location.href = mailto;
+          // give visual feedback
+          if (submitBtn) {
+            submitBtn.textContent = 'Opening mail app...';
+            setTimeout(() => {
+              contactForm.reset();
+              if (submitBtn) submitBtn.textContent = originalBtnText;
+            }, 1200);
+          }
+        }
         return;
       }
 
@@ -446,3 +490,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
+  // footer year
+  try{ document.getElementById('footer-year').textContent = new Date().getFullYear(); }catch(e){}
