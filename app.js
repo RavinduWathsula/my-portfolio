@@ -400,6 +400,18 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (e) {}
     });
   });
+  Array.from(document.querySelectorAll("button, a")).forEach(el => {
+    const text = (el.textContent || "").toLowerCase().trim();
+    if (text.includes("contact") && !el.matches("[data-contact='true']")) {
+        el.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (!contactSection) return;
+            smoothScrollTo(contactSection, -80);
+            setTimeout(() => contactMessage?.focus(), 700);
+        });
+    }
+});
+
 
   /* =========================
      SCROLL DOWN BUTTON (hero)
@@ -431,4 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
      ========================= */
 
   console.log("app.js loaded and initialized.");
+  
+
+
 });
